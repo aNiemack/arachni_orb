@@ -1,0 +1,25 @@
+version: 2.1
+
+executors:
+   arachni_engine:
+     description: image with arachni-scanner installed.
+     machine:
+       image: niemacka/arachni
+jobs:
+  scan:
+    executor: arachni_engine
+    description: Runs default arachni scan on target website.
+    parameters: 
+      site_name:
+        description: url of site to be scanned.
+        type: string
+    steps:
+      - run:
+          command: |
+            cd arachni*
+	    bin/arachni << parameters.site_name >>
+            FILE=$(ls | grep -E "^ncar")
+            arachni_reporter "$FILE" --reporter=txt:outfile=oss_template_report.txt
+      
+      - store_artifacts:
+           path: oss_template_report.txt

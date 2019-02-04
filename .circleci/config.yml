@@ -16,7 +16,7 @@ jobs:
     steps:
       - run:
           command: |
-            cd arachni*
+            cd arachni-1.5.1-0.5.12
             bin/arachni << parameters.site_name >>
             FILE=$(ls | grep -E "^ncar")
             arachni_reporter "$FILE" --reporter=txt:outfile=oss_template_report.txt

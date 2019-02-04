@@ -1,10 +1,19 @@
 version: 2.1
 
 executors:
-   arachni_engine:
-     description: image with arachni-scanner installed.
-     docker:
-       - image: niemacka/arachni
+  arachni_engine:
+    description: Docker image with arachni.
+    docker:
+      - image: niemacka/arachni
+commands:
+  setup_arachni:
+    description: downloads and extracts arachni tarball.
+    steps:
+      - run:
+          command: |
+            wget https://github.com/Arachni/arachni/releases/download/v1.5.1/arachni-1.5.1-0.5.12-linux-x86_64.tar.gz; \
+            tar -xvzf arachni-1.5.1-0.5.12-linux-x86_64.tar.gz ; \
+            rm arachni-1.5.1-0.5.12-linux-x86_64.tar.gz
 jobs:
   scan:
     executor: arachni_engine
@@ -14,12 +23,13 @@ jobs:
         description: url of site to be scanned.
         type: string
     steps:
+      - setup_arachni
       - run:
           command: |
             cd arachni-1.5.1-0.5.12
             bin/arachni << parameters.site_name >>
             FILE=$(ls | grep -E "^ncar")
-            arachni_reporter "$FILE" --reporter=txt:outfile=oss_template_report.txt
+            bin/arachni_reporter "$FILE" --reporter=txt:outfile=oss_template_report.txt
       
       - store_artifacts:
            path: oss_template_report.txt

@@ -3,8 +3,8 @@ version: 2.1
 executors:
    arachni_engine:
      description: image with arachni-scanner installed.
-     machine:
-       image: niemacka/arachni
+     docker:
+       - image: niemacka/arachni
 jobs:
   scan:
     executor: arachni_engine
@@ -17,7 +17,7 @@ jobs:
       - run:
           command: |
             cd arachni*
-	    bin/arachni << parameters.site_name >>
+            bin/arachni << parameters.site_name >>
             FILE=$(ls | grep -E "^ncar")
             arachni_reporter "$FILE" --reporter=txt:outfile=oss_template_report.txt
       

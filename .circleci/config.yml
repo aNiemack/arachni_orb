@@ -16,10 +16,6 @@ commands:
             rm arachni-1.5.1-0.5.12-linux-x86_64.tar.gz
   test:
     description: Passes or fails job based on given parameters.
-    parameters:
-      severity:
-        description: Severity of vulnerabilities High, Medium, Low, Informational.
-        type: string
     steps:
       - run:
           command: |
@@ -37,6 +33,9 @@ jobs:
       site_name:
         description: url of site to be scanned.
         type: string
+      severity:
+        description: Severity of vulnerabilities High, Medium, Low, Informational.
+        type: string  
     steps:
       - setup_arachni
       - run:

@@ -53,5 +53,5 @@ jobs:
       
       - store_artifacts:
           path: arachni-1.5.1-0.5.12/oss_template_report.txt
-      - test
+      - test:
           severity: << parameters.severity >>

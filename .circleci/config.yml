@@ -37,6 +37,9 @@ jobs:
       site_name:
         description: url of site to be scanned.
         type: string
+      severity:
+        description: Severity of vulnerabilities High, Medium, Low, Informational.
+        type: string
     steps:
       - setup_arachni
       - run:

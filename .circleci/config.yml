@@ -24,7 +24,7 @@ commands:
     steps:
       - run:
           command: |
-            RESULT=$(cat /root/project/arachni-1.5.1-0.5.12/oss_template_report.txt | grep -e << parameters.severity >>)
+            RESULT=$(cat arachni-1.5.1-0.5.12/oss_template_report.txt | grep -e << parameters.severity >>)
             if [[ $RESULT == *"<< parameters.severity >>"* ]]; then exit 1; fi
 jobs:
   scan:

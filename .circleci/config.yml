@@ -16,7 +16,7 @@ commands:
             rm arachni-1.5.1-0.5.12-linux-x86_64.tar.gz
   test:
     description: Passes or fails job based on given parameters.
-    parameters;
+    parameters:
       severity:
         description: Severity of vulnerabilities High, Medium, Low, Informational.
         type: string

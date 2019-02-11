@@ -14,6 +14,21 @@ commands:
             wget https://github.com/Arachni/arachni/releases/download/v1.5.1/arachni-1.5.1-0.5.12-linux-x86_64.tar.gz; \
             tar -xvzf arachni-1.5.1-0.5.12-linux-x86_64.tar.gz ; \
             rm arachni-1.5.1-0.5.12-linux-x86_64.tar.gz
+  test:
+    description: Passes or fails job based on given parameters.
+    parameters:
+      severity:
+        description: Severity of vulnerabilities High, Medium, Low, Informational.
+        type: string
+    steps:
+      - run:
+          command: |
+            RESULT=$(cat oss_template_report.txt | grep -e << parameters.severity >>)
+            if [[ $RESULT == *"<< parameters.severity >>"* ]]; then \
+                exit 1 \
+            else \
+                exit o \
+            fi
 jobs:
   scan:
     executor: arachni_engine
@@ -33,3 +48,4 @@ jobs:
       
       - store_artifacts:
            path: arachni-1.5.1-0.5.12/oss_template_report.txt
+      - test

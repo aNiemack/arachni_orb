@@ -26,7 +26,7 @@ commands:
           command: |
             set -e
             RESULT=$(cat /root/project/arachni-1.5.1-0.5.12/oss_template_report.txt | grep -e Severity | tr -d [:space:] | sed 's/\[~\]/,/g')
-            IFS=',' read -r -a array "<<<" "$RESULT"
+            IFS=',' read -r -a array '<<'< "$RESULT"
             case << parameters.severity >> in High) for i in "${array[@]}"; do if [ "$i" == "High" ]; then exit 1; else exit 0; fi; done; ;; Medium) for i in "${array[@]}"; do if [ "$i" == "Medium" ] || [ "$i" == "High" ]; then exit 1; else exit 0; fi; done; ;; Low) for i in "${array[@]}"; do if [ "$i" == "Low" ] || [ "$i" == "Medium" ] || [ "$i" == "High" ]; then exit 1; else exit 0; fi; done; ;; Informational) for i in "${array[@]}"; do if [ "$i" == "Informational" ] || [ "$i" == "Low" ] || [ "$i" == "Medium" ] || [ "$i" == "High" ]; then exit 1; else exit 0; fi; done; ;; esac
 jobs:
   scan:

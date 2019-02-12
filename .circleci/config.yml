@@ -49,8 +49,8 @@ jobs:
             cd arachni-1.5.1-0.5.12
             bin/arachni << parameters.site_name >>
             FILE=$(ls | grep -E "^ncar")
-            bin/arachni_reporter "$FILE" --reporter=txt:outfile=oss_template_report.txt
+            bin/arachni_reporter "$FILE" --reporter=txt:outfile=<< parameters.site_name >>_report.txt
       - store_artifacts:
-          path: arachni-1.5.1-0.5.12/oss_template_report.txt
+          path: arachni-1.5.1-0.5.12/<< parameters.site_name >>_report.txt
       - test:
           severity: << parameters.severity >>

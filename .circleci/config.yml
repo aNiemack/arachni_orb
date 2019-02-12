@@ -24,6 +24,7 @@ commands:
     steps:
       - run:
           command: |
+            set -e
             cd arachni-1.5.1-0.5.12
             RESULT=$(cat oss_template_report.txt | grep -E "Severity" | tr -d [:space:] | sed 's/\[~\]/,/g')
             echo "$RESULT" > temp

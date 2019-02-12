@@ -48,7 +48,7 @@ jobs:
             bin/arachni << parameters.site_name >>
             FILE=$(ls | grep -E "^ncar")
             bin/arachni_reporter "$FILE" --reporter=txt:outfile=oss_template_report.txt
-      - store_artifacts:
-          path: arachni-1.5.1-0.5.12/oss_template_report.txt
       - test:
           severity: << parameters.severity >>
+      - store_artifacts:
+          path: arachni-1.5.1-0.5.12/oss_template_report.txt

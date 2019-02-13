@@ -1,4 +1,4 @@
-A circleci orb that scans a given web address using arachni-scanner and then passes or fails the job based on the severity of vulnerabilities that are found.
+A CircleCI orb that scans a given web address using arachni-scanner and then passes or fails the job based on the severity of vulnerabilities that are found.
 
     version 2.1
     orbs:

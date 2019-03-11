@@ -48,7 +48,7 @@ jobs:
           command: |
             cd arachni-1.5.1-0.5.12
             bin/arachni << parameters.site_name >>
-            FILE=$(ls | grep -E "^ncar")
+            FILE=$(ls | grep -E ".afr")
             bin/arachni_reporter "$FILE" --reporter=txt:outfile=report.txt
       - store_artifacts:
           path: arachni-1.5.1-0.5.12/report.txt
